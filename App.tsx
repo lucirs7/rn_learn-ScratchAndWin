@@ -1,39 +1,57 @@
-import { StyleSheet, Text, View } from 'react-native';
-
-import { FontAwesome } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 let items = new Array(25).fill('empty');
 
 export default function App() {
-  const [randomNumber, setRandomNumber] = useState('');
+  const [randomNumber, setRandomNumber] = useState(0);
+  const [isScratched, setIsScratched] = useState(false);
 
   const generateRandomNumber = () => {
-    //TODO Generate random number
+    let randNumber = Math.floor(Math.random() * 25);
+    setRandomNumber(randNumber);
+    setIsScratched(true);
   };
 
   useEffect(() => {
     generateRandomNumber();
   }, []);
 
-  const scratchItem = () => {
-    //TODO Decide lucky or unlucy
+  const scratchItem = (itemNumber: number) => {
+    if (randomNumber === itemNumber) {
+      items[itemNumber] = 'lucky';
+    } else {
+      items[itemNumber] = 'unlucky';
+    }
   };
 
-  const scratchItemIcon = () => {
-    //TODO Find right icon
+  const scratchItemIcon = (itemNumber: number): string => {
+    if (items[itemNumber] === 'lucky') {
+      return 'dollar';
+    } else {
+      return 'frown-o';
+    }
   };
 
-  const scratchItemColour = () => {
-    //TODO Find right colour
+  const scratchItemColour = (itemNumber: number): string => {
+    if (items[itemNumber] === 'lucky') {
+      return 'green';
+    } else if (items[itemNumber] === 'unlucky') {
+      return 'red';
+    } else {
+      return 'black';
+    }
   };
 
   const showAllItem = () => {
-    //TODO Button - reveal all icons
+    items.fill('unlucky');
+    items[randomNumber] = 'lucky';
   };
 
   const resetGame = () => {
-    //TODO Reset the game
+    generateRandomNumber();
+    items = new Array(25).fill('empty');
   };
 
   return (
