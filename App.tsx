@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Button } from 'native-base';
 
@@ -68,8 +68,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={{marginVertical: 16, fontSize: 24, fontWeight: 'bold'}}>Scratch and win!</Text>
+      <View style={styles.topBar}>
+        <Text style={styles.topText}>Scratch and win!</Text>
       </View>
       <View style={styles.gridContainer}>
         <View style={styles.rowContainer}>
@@ -361,12 +361,12 @@ export default function App() {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {showAllItems()}}>
-        <Text>Show all coupons</Text>
+        <Text style={styles.buttonText}>Show all coupons</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={{...styles.button, backgroundColor: 'turquoise'}}
+        style={{...styles.button, backgroundColor: 'bisque'}}
         onPress={() => {resetGame()}}>
-        <Text>Reset</Text>
+        <Text style={styles.buttonText}>Reset</Text>
       </TouchableOpacity>
     </View>
   );
@@ -378,6 +378,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  topBar: {
+    backgroundColor: 'coral',
+    height: 85,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 24,
+  },
+  topText: {
+    marginVertical: 16,
+    fontSize: 24,
+    fontWeight: 'bold'
   },
   gridContainer: {
 
@@ -396,6 +409,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 16,
     padding: 8,
-    backgroundColor: 'coral'
+    width: Dimensions.get('window').width * 0.45,
+    backgroundColor: 'darksalmon'
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    padding: 8,
   },
 });
